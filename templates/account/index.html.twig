@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon compte - Mondial Bazin{% endblock %}
+
+{% block content %}
+<h1>Mon compte</h1>
+{% if is_granted('ROLE_ADMIN')%}
+    <small><a href="/admin">Vous êtes un administrateur, accéder au backoffice ? </a></small><br>
+{% endif %}
+Bienvenu {{ app.user.prenom }} dans votre compte. <br>
+C'est dans cette espace que vous aller pouvoir gérer toutes vos informations personnelles.
+
+<hr>
+<div class="row">
+    <div class="col-md-4">
+        <div class="account-item text-center">
+            <img src="{{asset('assets/img/password.png')}}"><br>
+            <a href="{{ path('account_password')}}">Modifier mon mot de passe</a><br>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="account-item text-center">
+            <img src="{{asset('assets/img/adresse.png')}}"><br>
+            <a href="{{ path('account_address')}}">Gérer mes adresses</a><br>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="account-item text-center">
+            <img src="{{asset('assets/img/achat.png')}}"><br>
+            <a href="{{path('account_order')}}"> Mes commandes</a><br>
+        </div>
+    </div>
+</div>
+<hr>
+
+{% endblock %}

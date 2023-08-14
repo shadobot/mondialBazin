@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Valider ma commande - Mondial Bazin!{% endblock %}
+
+{% block content %}
+    <h2>Je passe ma commande</h2>
+    <p>Choisissez vos préférence avant de passer votre commande sur Mondial bazin.</p>
+    <hr>
+    <div class="row">
+        <div class="col-md-6">
+                {% set formhtml %}
+                    {{ form_start(form, {action:path('order_recap')}) }}
+                        {{ form_label(form.addresses, 'Choisissez votre livraison')}}
+                        <a class="new-address" href="{{ path('account_address_add')}}">Ajouter une nouvelle adresse</a>
+                    {{ form_end(form) }}
+                {% endset%}
+                {{ formhtml|replace({'[br]': '<br>'})|raw }}
+        </div>
+        <div class="col-md-6">
+            <b>Récap de ma commande</b><br>
+            <p>Retrouvez le récapitulatif de vos produits</p>
+            <div class="order-sumary">
+                {% for key, product in cart %}
+                    <div class="row {% if key > 0 %}mt-2 {% endif %}">
+                        <div class="col-2">
+                            <img src="/uploads/{{ product.product.illustration }}" alt="{{ product.product.name }}" height="50Opx"><br>
+                        </div>
+                        <div class="col-8 my-auto">
+                            {{ product.product.name }}<br>
+                            <small>{{ product.product.subtitle }}</small>
+                        </div>
+                        <div class="col-2 my-auto">
+                            x {{ product.quantity }}
+                        </div>
+                    </div>
+                {% endfor %}
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
